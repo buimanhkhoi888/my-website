@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Daily Challenge Hub</title>
+    <style>
+        body {
+            text-align: center;
+        }
+
+        button{
+            width: 100px;
+            height: 50px;
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+
+        h1 {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        h2 {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size:larger
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .completed {
+            text-decoration: line-through;
+            color: black
+        }
+
+        .completedBlack {
+            text-decoration: line-through;
+            color: rgb(255, 255, 255)
+        }
+
+        .darkMode {
+            background-color: black;
+            color:white
+        }
+
+        .darkMode button {
+            background-color: #333;
+            color: white;
+        }
+
+        .dark-mode input,
+        .dark-mode select,
+        .dark-mode textarea {
+            background-color: #222;
+            color: white;
+            border: 1px solid #555;
+        }
+
+        button:hover {
+            transform: scale(1.1);
+            background-color:rgb(161, 224, 14)
+        }
+
+        #challengeList li {
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        #challengeList li:hover {
+            transform: scale(1.1);
+            color: rgb(161, 224, 14);
+        }
+
+        #userMadeChallengeList li:hover {
+            transform: scale(1.1);
+            color: rgb(161, 224, 14);
+        }
+
+        #userMadeChallengeList li {
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        body {
+            background-color: white;
+            transition: transform 0.5s ease, color 0.5s ease, background-color 0.5s ease;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>DAILY CHALLENGE HUB 2025</h1>
+    </header>
+
+    <main>
+        <form id="challengeForm">
+    Username: <input id="username" type="text" placeholder="Your Username?"><br>
+    Challenge Type: <select id="challengeTypes">
+        <option value="programming">Programming</option>
+        <option value="math">Math</option>
+        <option value="arts">Arts</option>
+        <option value="sports">Sports</option>
+        <option value="video games">Video Games</option>
+    </select><br>
+
+        Your Challenge Idea: <textarea id="challengeIdea", cols="30", rows="4"></textarea><br>
+       </form>
+    </div>
+    <button id="submit" type="submit">Submit</button>
+    <a href="#ChallengesForUser">Go To Challenges</a>
+    <ul id="userMadeChallengeList">
+
+     </ul>
+     <h2>Fun Programming Challenges Playlist (using Processing and p5.js)</h2>
+     <iframe id="playlist" width="800" height="600"
+     src="https://www.youtube.com/embed/videoseries?list=PLRqwX-V7Uu6ZiZxtDDRCi6uhfTH4FilpH"
+     frameborder="0" allowfullscreen></iframe><br>
+     <div>
+        <button id="btnToggleVid">Toggle Vid</button><br>
+        <button id="btnDarkMode" class="darkMode">Dark Mode</button>
+     </div>
+     <section id="ChallengesForUser">
+            <h2 id="h2Challenges">CHALLENGES FOR YOU TO COMPLETE!!</h2>
+                <ul id="challengeList">
+
+                </ul>
+            <div>
+                <button id="btnGiveChallenges">Give Challenges</button>
+                <button id="btnGiveRandomChallenge">Give Random Challenge</button>
+            </div>
+     </section>
+    </main>
+
+    <script>
+        const form = document.getElementById('challengeForm');
+
+        form.addEventListener("submit", function(event) {
+            event.preventDefault();
+        });
+
+        const userMadeChallengeList = document.getElementById("userMadeChallengeList");
+        const btnSubmit = document.getElementById("submit");
+        const btnToggleVid = document.getElementById("btnToggleVid");
+        const playlist = document.getElementById("playlist");
+        const challengeList = document.getElementById("challengeList");
+        const btnGiveChallenges = document.getElementById("btnGiveChallenges");
+        const lbUserLevel = document.getElementById("lbUserLevel");
+        const btnGiveRandomChallenge = document.getElementById("btnGiveRandomChallenge");
+        const btnDarkMode = document.getElementById("btnDarkMode");
+        let level = 0;
+        
+        btnSubmit.addEventListener("click", function() {
+        const username = document.getElementById("username").value;
+        const challengeType = document.getElementById("challengeTypes").value;
+        const challengeIdea = document.getElementById("challengeIdea").value;
+
+                if (username.trim() !== "" && challengeType.trim() !== "" && challengeIdea.trim() !== "") {
+            userMadeChallengeList.replaceChildren();
+            let challengeDes = "Today's Challenge: " + challengeIdea + ". It's a(n) " + challengeType + " challenge. Suggested by " + username + ".";
+            userChallenges.push(challengeDes);
+            const newChallenge = document.createElement("li");
+            newChallenge.textContent = challengeDes;
+            userMadeChallengeList.appendChild(newChallenge);
+
+        }
+
+        else {
+            newChallenge.textContent = "....";
+            alert("You must fill all fields!");
+        }
+        });
+
+        let userChallenges = [];
+
+        const newChallenge = document.createElement("li");
+
+
+        let challenges = {
+        programming: [
+            "Make a simple calculator using Python.",
+            "Create a simple 2D platformer game in Scratch with 10 basic levels."
+        ],
+
+        math: [
+            "Make a super long polynominal.",
+             "Solve the most challenging equation in any book you're currently studying."
+        ],
+
+        videoGames: [
+               "Beat ToAST in EToH in under 10 minutes.",
+                    "Beat ToLD while taking the least damage possible."
+         ]
+
+        }
+        
+
+
+        btnToggleVid.addEventListener("click", function() {
+            const currentDisplay = getComputedStyle(playlist).display;
+
+            if (currentDisplay === "none") {
+                playlist.style.display = "inline";
+            }
+
+            else {
+                playlist.style.display = "none";
+            }
+        });
+
+        btnGiveChallenges.addEventListener("click", function() {
+            challengeList.replaceChildren();
+
+            for (let i = 0; i < challenges.videoGames.length; i++) {
+                const li = document.createElement("li");
+                li.textContent = challenges.videoGames[i];
+                challengeList.appendChild(li);
+            }
+
+            completedChallenge();
+            
+        });
+
+        btnGiveRandomChallenge.addEventListener("click", function() {
+            let randomNum = Math.floor(Math.random() * 3);
+
+            if (randomNum === 0) {
+                getRandomChallenge("programming", document.getElementById("challengeList"));
+            }
+
+            else if (randomNum === 1) {
+                getRandomChallenge("math", document.getElementById("challengeList"));
+            }
+
+            else {
+                getRandomChallenge("videoGames", document.getElementById("challengeList"));
+            }
+
+            completedChallenge();
+        });
+
+        let mode = "white";
+
+        btnDarkMode.addEventListener("click", function() {
+            if (mode === "white") {
+            document.body.classList.toggle("darkMode")
+            mode = "black";
+            }
+
+            else {
+                document.body.classList.toggle("darkMode")
+                mode = "white";
+            }
+
+            console.log(mode);
+        });
+
+
+        function getRandomChallenge(categoryName, challengeList) {
+            challengeList.replaceChildren();
+            let category = challenges[categoryName];
+            let randomNum = Math.floor(Math.random() * category.length);
+            let li = document.createElement("li");
+            li.textContent = category[randomNum];
+            challengeList.appendChild(li);
+        }
+
+        function completedChallenge() {
+            const challengeItems = document.querySelectorAll("#challengeList li");
+
+            if (mode === "white") {
+                challengeItems.forEach(item => {
+                item.addEventListener("click", function() {
+                item.classList.toggle("completed");
+                    });
+                });
+            }
+
+            else {
+                challengeItems.forEach(item => {
+                item.addEventListener("click", function() {
+                item.classList.toggle("completedBlack");
+                    });
+                });
+            }
+        }
+    </script>
+</body>
+</html>
